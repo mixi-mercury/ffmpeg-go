@@ -16,12 +16,12 @@ func getInputArgs(node *Node) []string {
 	var args []string
 	if node.name == "input" {
 		kwargs := node.kwargs.Copy()
-		initArgs := kwargs.PopPairs("init_args")
+		initOpts := kwargs.PopOptions("init_opts")
 		filename := kwargs.PopString("filename")
 		format := kwargs.PopString("format")
 		videoSize := kwargs.PopString("video_size")
-		for _, initArg := range initArgs {
-			args = append(args, initArg.Key, initArg.Value)
+		for _, initOpt := range initOpts {
+			args = append(args, fmt.Sprintf("-%s", initOpt.Name), initOpt.Value)
 		}
 		if format != "" {
 			args = append(args, "-f", format)

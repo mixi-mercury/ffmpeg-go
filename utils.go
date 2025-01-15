@@ -163,14 +163,14 @@ func (a KwArgs) PopString(k string) string {
 	return ""
 }
 
-func (a KwArgs) PopPairs(k string) []Pair {
+func (a KwArgs) PopOptions(k string) []Option {
 	if c, ok := a[k]; ok {
 		defer delete(a, k)
-		if v, ok := c.([]Pair); ok {
+		if v, ok := c.([]Option); ok {
 			return v
 		}
 	}
-	return []Pair{}
+	return []Option{}
 }
 
 func (a KwArgs) HasKey(k string) bool {
