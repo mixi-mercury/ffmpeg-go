@@ -95,6 +95,11 @@ type Node struct {
 	nodeType            string
 }
 
+type Pair struct {
+	Key   string
+	Value string
+}
+
 func NewNode(streamSpec []*Stream,
 	name string,
 	incomingStreamTypes sets.String,
