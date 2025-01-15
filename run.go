@@ -16,9 +16,13 @@ func getInputArgs(node *Node) []string {
 	var args []string
 	if node.name == "input" {
 		kwargs := node.kwargs.Copy()
+		initArgs := kwargs.PopPairs("init_args")
 		filename := kwargs.PopString("filename")
 		format := kwargs.PopString("format")
 		videoSize := kwargs.PopString("video_size")
+		for _, initArg := range initArgs {
+			args = append(args, initArg.Key, initArg.Value)
+		}
 		if format != "" {
 			args = append(args, "-f", format)
 		}
@@ -268,7 +272,7 @@ func (s *Stream) Compile(options ...CompilationOption) *exec.Cmd {
 	for _, option := range GlobalCommandOptions {
 		option(cmd)
 	}
-  if LogCompiledCommand {
+	if LogCompiledCommand {
 		log.Printf("compiled command: ffmpeg %s\n", strings.Join(args, " "))
 	}
 	return cmd
